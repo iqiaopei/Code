@@ -144,9 +144,28 @@ public:
 		}
 		delete del;
 	}
+	Node* Find_R(const K& key)
+	{
+		return _Find_R(_root,key);
+	}
+	Node* _Find_R(Node* _root, const K& key)
+	{
+		if (_root == NULL)
+			return NULL;
 
+		Node* cur = _root;
+		if (cur->_key > key)
+			return _Find_R(_root->_left, key);
+		else if (cur->_key < key)
+			return _Find_R(_root->_right, key);
+		else
+		{
+			cout << "ÕÒµ½½áµã" << endl;
+			return _root;
+		}
+	}
 public:
-	bool Insert_R(const K& key, const V&value)
+	bool Insert_R(const K& key, const V& value)
 	{
 		return _Insert_R(_root,key,value);
 	}
@@ -176,7 +195,30 @@ public:
 	{
 		if(_root == NULL)
 			return false;
-		if(_root->)
+		if (_root->_key < key)
+			return _Remove_R(_root->_right, key);
+		else if (_root->_key > key)
+			return _Remove_R(_root->_left, key);
+		else
+		{
+			Node* del = _root;
+
+			if (_root->_left == NULL)
+				_root = _root->_right;
+			else if (_root->_right == NULL)
+				_root = _root->_left;
+			else
+			{
+				Node* fInOrder = _root->_right;
+				while (fInOrder->_left)
+				{
+					fInOrder = fInOrder->_left;
+				}
+				swap(del->_key, fInOrder->_key);
+				swap(del->_value, fInOrder->_value);
+				return _Remove_R(_root->_right, key);
+			}
+		}
 	}
 public:
 	void InOrder()
@@ -207,7 +249,8 @@ void test()
 		t1.Insert(a[i], a[i]);
 	}
 	t1.InOrder();
-	//t1.Remove(53);
-	//t1.InOrder();
+	t1.Find_R(9);
+	/*t1.Remove_R(53);
+	t1.InOrder();*/
 
 }
