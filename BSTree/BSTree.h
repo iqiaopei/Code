@@ -38,7 +38,7 @@ public:
 
 		Node* cur = _root;
 		Node* parent = NULL;
-
+		//Ñ°ÕÒ²åÈëÎ»ÖÃ 
 		while (cur)
 		{
 
@@ -55,7 +55,7 @@ public:
 			else
 				return false;
 		}
-
+		//²åÈë 
 		if (parent->_key < key)
 			parent->_right = new Node(key, value);
 		else
@@ -168,7 +168,16 @@ public:
 		else
 			return false;
 	}
-
+	bool Remove_R(const K& key)
+	{
+		return _Remove_R(_root,key);
+	}
+	bool _Remove_R(Node*& _root, const K& key)
+	{
+		if(_root == NULL)
+			return false;
+		if(_root->)
+	}
 public:
 	void InOrder()
 	{
